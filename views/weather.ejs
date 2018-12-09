@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jeppes VäderApp</title>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="./script/script.js" ></script>
+    <link rel='stylesheet' href='./stylesheet/style.css' />
+</head>
+
+<body>
+    <section class="hero is-dark">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Välkommen till Jeppes väderapp!
+                </h1>
+                <h4>
+                    Skapa din egen lista med städer du vill hålla koll på.
+                </h4>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <h4>Lägg till städer i din väderlista!</h4>
+                    <form method="POST">
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                <input class="input" name="city_name" type="text" placeholder="Stad?" required>
+                            </div>
+                            <div class="control">
+                                <button class="button is-info">
+                                    Lägg till Stad
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <br>
+                    <p>Vädret uppdateras varje minut men orkar du inte vänta så klicka på knappen här under!</p>
+                            <button class="button is-info" id="update">
+                                Uppdatera Väder
+                            </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+           
+        <div class="container">
+                
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <% for (weather of weather_data) { %>
+                    <div class="box weather-cards">
+                        <article class="media">
+                            <div class="media-left">
+                                <figure class="image is-50x50">
+                                    <img src="http://openweathermap.org/img/w/<%= weather.icon %>.png" alt="Image">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                    <form method="post" action="/deleteCity">
+                                    <p>
+                                        <input name='cityDelete' class="hiddenInput" value='<%= weather.city %>'hidden type="text"/>
+                                        <span class="title"><%= weather.city %><%= weather.country %></span><span>   </span> <button class="buttonDelete" name='delete' data-city='<%= weather.city %>' type='submit'>Ta bort stad</button>
+                                        <br>
+                                        <span class="subtitle"><%= weather.temperature %>° C</span>
+                                        <br> 
+                                            <%= weather.description %>
+                                        <br>
+                                        <span class="subtitle">Vind <%= weather.wind %> m/s </span>
+                                        
+                                    </p>
+                                </form>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="hero is-dark">
+        <p>CodeSavage Jeppe 2018</p>
+    </footer>
+    
+</body>
+
+</html>
